@@ -6,7 +6,8 @@ export default function StartPage() {
       const texty = useTransform(
         scrollY,
         [0, 100, 200, 300, 350],
-        [0, 55, 110, 170, 200]
+        // [0, 55, 110, 170, 200]
+        [0, 15, 30, 45, 60]
       );
       const scaley = useTransform(
         scrollY,

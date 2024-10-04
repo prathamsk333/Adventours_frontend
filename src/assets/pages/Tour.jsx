@@ -9,6 +9,7 @@ import Mapdiv from './Mapdiv';
 import LoadingPage from './LoadingPage';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { validatePayment } from '../../util/http';
 
 const arr = [1, 2, 3, 4, 5];
 const loadRazorpayScript = () => {
@@ -22,41 +23,49 @@ export default function Tour() {
   const { slug } = useParams();
 
   useEffect(() => {
-    loadRazorpayScript(); // Load Razorpay script when the component mounts
+    loadRazorpayScript();
   }, []);
 
-  // Fetch tour details
   const { data, isLoading, error } = useQuery({
     queryKey: ['event', slug],
     queryFn: () => fetchTour(slug),
   });
 
-  // Checkout mutation
-  const { mutate: initiateCheckout, isLoading: isCheckoutLoading, error: checkoutError } = useMutation({
+  const {
+    mutate: initiateCheckout,
+    isLoading: isCheckoutLoading,
+    error: checkoutError,
+  } = useMutation({
     mutationFn: ({ tourID, amount }) => checkoutSessionPOST(tourID, amount),
     onSuccess: (checkoutData) => {
       console.log('Checkout successful:', checkoutData);
-
-      // Define Razorpay options
       const options = {
-        key: 'rzp_test_RVWBB6B4TsFCVI', // Replace with your actual Razorpay Key ID
-        amount: checkoutData.amount, // Amount from the response (in paise) 
+        key: 'rzp_test_RVWBB6B4TsFCVI',
+        amount: checkoutData.amount,
         currency: 'INR',
-        name: 'Acme Corp',
+        name: 'Adventours',
+        order_id: checkoutData.id,
         description: 'Test Transaction',
-        image: 'https://yt3.ggpht.com/J0GFtBEsI_bXtZwyhJsPtmhoYMEQNhMhVKYD-68t4mAZcwDiKGZjwANz27DCClT6M-oPud1ogw=s88-c-k-c0x00ffffff-no-rj',
-        order_id: checkoutData.order_id, // Use order_id from response
+        image:
+          'https://yt3.ggpht.com/J0GFtBEsI_bXtZwyhJsPtmhoYMEQNhMhVKYD-68t4mAZcwDiKGZjwANz27DCClT6M-oPud1ogw=s88-c-k-c0x00ffffff-no-rj',
         handler: function (response) {
-          alert('Payment ID: ' + response.razorpay_payment_id);
-          alert('Order ID: ' + response.razorpay_order_id);
-          alert('Signature: ' + response.razorpay_signature);
+          validatePayment(response, checkoutData)
+            .then((validationResponse) => {
+              console.log(
+                'Payment validated successfully:',
+                validationResponse
+              );
+            })
+            .catch((error) => {
+              console.error('Payment validation error:', error);
+            });
         },
         prefill: {
           name: 'Pratham',
           email: 'pratham.sk333@gmail.com',
           contact: '7795042315',
         },
-        notes: {  
+        notes: {
           address: 'Razorpay Corporate Office',
         },
         theme: {
@@ -65,10 +74,10 @@ export default function Tour() {
         method: {
           upi: true,
         },
-      };
+      };  
 
       const rzp1 = new window.Razorpay(options);
-      rzp1.on('payment.failed', function (response) {
+      rzp1.on('pay  ment.failed', function (response) {
         alert(response.error.code);
         alert(response.error.description);
         alert(response.error.source);

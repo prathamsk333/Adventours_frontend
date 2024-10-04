@@ -97,41 +97,41 @@ export async function signUpPOST(credentials) {
   return response.json();
 }
 
-export async function updateMe(credentials) {
-  try {
-    const token = getToken();
-    const auth = token ? `Bearer ${token}` : '';
+  export async function updateMe(credentials) {
+    try {
+      const token = getToken();
+      const auth = token ? `Bearer ${token}` : '';
 
-    const response = await fetch(
-      `http://localhost:3000/api/v1/users/updateMe`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: auth,
-        },
-        credentials: 'include',
-        body: JSON.stringify(credentials),
-      }
-    );
-
-    if (!response.ok) {
-      const errorInfo = await response.json();
-      const error = new Error(
-        'An error occurred while updating the credentials'
+      const response = await fetch(
+        `http://localhost:3000/api/v1/users/updateMe`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: auth,
+          },
+          credentials: 'include',
+          body: JSON.stringify(credentials),
+        }
       );
-      error.status = response.status;
-      error.info = errorInfo;
+
+      if (!response.ok) {
+        const errorInfo = await response.json();
+        const error = new Error(
+          'An error occurred while updating the credentials'
+        );
+        error.status = response.status;
+        error.info = errorInfo;
+        throw error;
+      }
+
+      const result = await response.json();
+      return result.data ? result.data : null;
+    } catch (error) {
+      console.error('update error:', error);
       throw error;
     }
-
-    const result = await response.json();
-    return result.data ? result.data : null;
-  } catch (error) {
-    console.error('update error:', error);
-    throw error;
   }
-}
 // http://localhost:3000/api/v1/users/updateMyPassword
 
 export async function updateMyPassword(credentials) {
@@ -231,4 +231,39 @@ export async function checkoutSessionPOST(tourID, amount) {
   }
 
   return response.json();
+}
+
+export async function validatePayment(response, checkoutData) {
+  try {
+    const token = getToken(); 
+    const auth = token ? `Bearer ${token}` : '';
+
+    const res = await fetch('http://localhost:3000/api/v1/bookings/order/validate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: auth,  
+      },
+      body: JSON.stringify({
+        payment_id: response.razorpay_payment_id,
+        order_id: response.razorpay_order_id,
+        signature: response.razorpay_signature,
+        checkoutData,
+      }),
+    });
+
+    if (!res.ok) {
+      const errorInfo = await res.json();
+      const error = new Error('An error occurred while validating the payment');
+      error.status = res.status;
+      error.info = errorInfo;
+      throw error;
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('Error validating payment:', error);
+    throw error;
+  }
 }
