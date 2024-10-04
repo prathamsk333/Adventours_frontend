@@ -25,7 +25,6 @@ export const UserProvider = ({ children }) => {
     const token = getToken();
     // console.log(token);
     const check = isTokenExpired(token);
-    // console.log(check);
 
     if (token && isTokenExpired(token)) {
       console.log('Token expired');
