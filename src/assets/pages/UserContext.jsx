@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
       console.log('Token expired');
       Cookies.remove('jwt');
       localStorage.removeItem('user');
-    window.location.reload();
+      window.location.reload();
 
       return null;
     }

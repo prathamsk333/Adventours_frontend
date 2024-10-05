@@ -16,6 +16,7 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar';
 import getToken from '@/util/getToken';
+import { Settings } from 'lucide-react';
 
 export default function Profile() {
   const { user, setUser } = useContext(UserContext);
@@ -92,6 +93,10 @@ export default function Profile() {
     });
   }
 
+  function changePage(page) {
+    window.location.href = `/${page}`;
+  }
+
   return (
     <>
       <NavBar />
@@ -103,7 +108,8 @@ export default function Profile() {
             </MenubarTrigger>
             <MenubarContent>
               <MenubarItem
-                className={` ${
+                onClick={() => setCurrentPage('settings')}
+                className={`${
                   currentPage === 'settings'
                     ? 'menubar-item-selected'
                     : 'menubar-item'
@@ -112,7 +118,8 @@ export default function Profile() {
                 Settings
               </MenubarItem>
               <MenubarItem
-                className={` ${
+                onClick={() => changePage('bookings')}
+                className={`${
                   currentPage === 'bookings'
                     ? 'menubar-item-selected'
                     : 'menubar-item'
@@ -121,22 +128,13 @@ export default function Profile() {
                 My Bookings
               </MenubarItem>
               <MenubarItem
-                className={` ${
+                className={`${
                   currentPage === 'reviews'
                     ? 'menubar-item-selected'
                     : 'menubar-item'
                 }`}
               >
                 My Reviews
-              </MenubarItem>
-              <MenubarItem
-                className={` ${
-                  currentPage === 'billings'
-                    ? 'menubar-item-selected'
-                    : 'menubar-item'
-                }`}
-              >
-                Billings
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
@@ -184,7 +182,7 @@ export default function Profile() {
               >
                 Submit
               </motion.button>
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} className='mt-8'>
+              <motion.div whileHover={{ scale: 1.05, y: -2 }} className="mt-8">
                 <a href="/">Upload new photo</a>
               </motion.div>
 
