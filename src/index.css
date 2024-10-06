@@ -282,6 +282,7 @@
   background-color: rgb(240, 240, 240);
   margin: 15px;
   display: flex;
+  margin-bottom: 60px;
   justify-content: center;
   align-items: center;
   display: grid;

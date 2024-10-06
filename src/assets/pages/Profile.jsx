@@ -8,15 +8,8 @@ import { updateMe, updateMyPassword } from '@/util/http';
 import PopUp from './PopUp';
 import Cookies from 'js-cookie';
 
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger,
-} from '@/components/ui/menubar';
+
 import getToken from '@/util/getToken';
-import { Settings } from 'lucide-react';
 
 export default function Profile() {
   const { user, setUser } = useContext(UserContext);
@@ -64,20 +57,17 @@ export default function Profile() {
       const token = getToken();
       console.log('Current token before setting:', token);
 
-      // Remove the existing cookie
       Cookies.remove('jwt', { path: '/', sameSite: 'None' });
 
-      // Set the new cookie
       Cookies.set('jwt', passwordData.token, {
         expires: 7,
         path: '/',
         sameSite: 'None',
       });
 
-      // Use getToken to retrieve the token
       setTimeout(() => {
         console.log('New token set:', getToken());
-      }, 100); // 100ms delay
+      }, 100); 
     }
   }, [passwordData]);
 
@@ -101,44 +91,6 @@ export default function Profile() {
     <>
       <NavBar />
       <div className="profile-background">
-        <Menubar className="profile-menubar">
-          <MenubarMenu>
-            <MenubarTrigger className="menubar-trigger">
-              <img src="./menu_black.png" className="size-5" alt="" />
-            </MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem
-                onClick={() => setCurrentPage('settings')}
-                className={`${
-                  currentPage === 'settings'
-                    ? 'menubar-item-selected'
-                    : 'menubar-item'
-                }`}
-              >
-                Settings
-              </MenubarItem>
-              <MenubarItem
-                onClick={() => changePage('bookings')}
-                className={`${
-                  currentPage === 'bookings'
-                    ? 'menubar-item-selected'
-                    : 'menubar-item'
-                }`}
-              >
-                My Bookings
-              </MenubarItem>
-              <MenubarItem
-                className={`${
-                  currentPage === 'reviews'
-                    ? 'menubar-item-selected'
-                    : 'menubar-item'
-                }`}
-              >
-                My Reviews
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar>
 
         <div className="profile-box">
           <img

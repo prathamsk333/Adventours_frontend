@@ -10,6 +10,7 @@ import { UserProvider } from './assets/pages/UserContext';
 import NotFound from './assets/pages/NotFoudn';
 import Profile from './assets/pages/Profile';
 import ResetPassword from './assets/pages/ResetPassword';
+import BookingsPage from './assets/pages/BookingsPage';
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,10 @@ function App() {
           path: '/resetPassword/:token',
           element: <ResetPassword />,
           errorElement: <NotFound />
+        },
+        {
+          path: '/mybookings/getMyBookings',
+          element: <BookingsPage />,
         },
         {
           path: '*',

@@ -58,6 +58,43 @@ export async function fetchTour(tour) {
   }
 }
 
+export async function fetchBookings(tour) {
+  try {
+    const token = getToken();
+    let auth;
+    if (token) {
+      auth = `Bearer ${token}`;
+    } else {
+      auth = ' ';
+    }
+    console.log(token);
+
+    const response = await fetch(`http://localhost:3000/api/v1/view/mybookings/getMyBookings`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${auth}`,
+      },
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const errorInfo = await response.json();
+      const error = new Error('An error occurred while fetching the tour');
+      error.status = response.status;
+      error.info = errorInfo;
+      throw error;
+    }
+
+    const result = await response.json();
+
+    return result;
+  } catch (error) {
+    console.error('fetchTour error:', error);
+    throw error;
+  }
+}
+
 export async function loginPOST(credentials) {
   const response = await fetch('http://localhost:3000/api/v1/users/login', {
     method: 'POST',
