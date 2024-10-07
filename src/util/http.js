@@ -2,7 +2,7 @@ import getToken from './getToken';
 
 export async function fetchEvent() {
   try {
-    const response = await fetch('http://localhost:3000/api/v1/tours');
+    const response = await fetch('http://65.2.70.36:3000/api/v1/tours');
 
     if (!response.ok) {
       const errorInfo = await response.json();
@@ -32,7 +32,7 @@ export async function fetchTour(tour) {
     }
     console.log(token);
 
-    const response = await fetch(`http://localhost:3000/api/v1/view/${tour}`, {
+    const response = await fetch(`http://65.2.70.36:3000/api/v1/view/${tour}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -69,14 +69,17 @@ export async function fetchBookings(tour) {
     }
     console.log(token);
 
-    const response = await fetch(`http://localhost:3000/api/v1/view/mybookings/getMyBookings`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${auth}`,
-      },
-      credentials: 'include',
-    });
+    const response = await fetch(
+      `http://65.2.70.36:3000/api/v1/view/mybookings/getMyBookings`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${auth}`,
+        },
+        credentials: 'include',
+      }
+    );
 
     if (!response.ok) {
       const errorInfo = await response.json();
@@ -96,7 +99,7 @@ export async function fetchBookings(tour) {
 }
 
 export async function loginPOST(credentials) {
-  const response = await fetch('http://localhost:3000/api/v1/users/login', {
+  const response = await fetch('http://65.2.70.36:3000/api/v1/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -115,12 +118,12 @@ export async function loginPOST(credentials) {
   return response.json();
 }
 export async function signUpPOST(credentials) {
-  const response = await fetch('http://localhost:3000/api/v1/users/signup', {
+  const response = await fetch('http://65.2.70.36:3000/api/v1/users/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(credentials),    
+    body: JSON.stringify(credentials),
   });
 
   if (!response.ok) {
@@ -134,42 +137,42 @@ export async function signUpPOST(credentials) {
   return response.json();
 }
 
-  export async function updateMe(credentials) {
-    try {
-      const token = getToken();
-      const auth = token ? `Bearer ${token}` : '';
+export async function updateMe(credentials) {
+  try {
+    const token = getToken();
+    const auth = token ? `Bearer ${token}` : '';
 
-      const response = await fetch(
-        `http://localhost:3000/api/v1/users/updateMe`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: auth,
-          },
-          credentials: 'include',
-          body: JSON.stringify(credentials),
-        }
-      );
-
-      if (!response.ok) {
-        const errorInfo = await response.json();
-        const error = new Error(
-          'An error occurred while updating the credentials'
-        );
-        error.status = response.status;
-        error.info = errorInfo;
-        throw error;
+    const response = await fetch(
+      `http://65.2.70.36:3000/api/v1/users/updateMe`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: auth,
+        },
+        credentials: 'include',
+        body: JSON.stringify(credentials),
       }
+    );
 
-      const result = await response.json();
-      return result.data ? result.data : null;
-    } catch (error) {
-      console.error('update error:', error);
+    if (!response.ok) {
+      const errorInfo = await response.json();
+      const error = new Error(
+        'An error occurred while updating the credentials'
+      );
+      error.status = response.status;
+      error.info = errorInfo;
       throw error;
     }
+
+    const result = await response.json();
+    return result.data ? result.data : null;
+  } catch (error) {
+    console.error('update error:', error);
+    throw error;
   }
-// http://localhost:3000/api/v1/users/updateMyPassword
+}
+// http://65.2.70.36:3000/api/v1/users/updateMyPassword
 
 export async function updateMyPassword(credentials) {
   try {
@@ -178,7 +181,7 @@ export async function updateMyPassword(credentials) {
     console.log(token);
 
     const response = await fetch(
-      `http://localhost:3000/api/v1/users/updateMyPassword`,
+      `http://65.2.70.36:3000/api/v1/users/updateMyPassword`,
       {
         method: 'PATCH',
         headers: {
@@ -209,10 +212,10 @@ export async function updateMyPassword(credentials) {
 
 export async function resetPassword({ token, newPassword, confirmPassword }) {
   console.log(token);
-  console.log(`http://localhost:3000/api/v1/users/resetPassword/${token}`);
+  console.log(`http://65.2.70.36:3000/api/v1/users/resetPassword/${token}`);
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/users/resetPassword/${token}`,
+      `http://65.2.70.36:3000/api/v1/users/resetPassword/${token}`,
       {
         method: 'PATCH',
         headers: {
@@ -245,19 +248,22 @@ export async function resetPassword({ token, newPassword, confirmPassword }) {
 export async function checkoutSessionPOST(tourID, amount) {
   const token = getToken();
   const auth = token ? `Bearer ${token}` : '';
-  const response = await fetch(`http://localhost:3000/api/v1/bookings/checkout-session/${tourID}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: auth,
-    },
-    credentials: 'include',
-    body: JSON.stringify({
-      amount: amount,
-      currency: 'INR',
-      receipt: tourID,
-    }),
-  });
+  const response = await fetch(
+    `http://65.2.70.36:3000/api/v1/bookings/checkout-session/${tourID}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: auth,
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        amount: amount,
+        currency: 'INR',
+        receipt: tourID,
+      }),
+    }
+  );
 
   if (!response.ok) {
     const errorInfo = await response.json();
@@ -272,22 +278,25 @@ export async function checkoutSessionPOST(tourID, amount) {
 
 export async function validatePayment(response, checkoutData) {
   try {
-    const token = getToken(); 
+    const token = getToken();
     const auth = token ? `Bearer ${token}` : '';
 
-    const res = await fetch('http://localhost:3000/api/v1/bookings/order/validate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: auth,  
-      },
-      body: JSON.stringify({
-        payment_id: response.razorpay_payment_id,
-        order_id: response.razorpay_order_id,
-        signature: response.razorpay_signature,
-        checkoutData,
-      }),
-    });
+    const res = await fetch(
+      'http://65.2.70.36:3000/api/v1/bookings/order/validate',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: auth,
+        },
+        body: JSON.stringify({
+          payment_id: response.razorpay_payment_id,
+          order_id: response.razorpay_order_id,
+          signature: response.razorpay_signature,
+          checkoutData,
+        }),
+      }
+    );
 
     if (!res.ok) {
       const errorInfo = await res.json();

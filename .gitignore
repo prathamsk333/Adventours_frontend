@@ -20,8 +20,9 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
+*.sln               
 *.sw?
 
 config.env
 .env
+node_modules        

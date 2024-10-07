@@ -23,7 +23,6 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem('user');
     const token = getToken();
-    // console.log(token);
     const check = isTokenExpired(token);
 
     if (token && isTokenExpired(token)) {
@@ -31,13 +30,13 @@ export const UserProvider = ({ children }) => {
       Cookies.remove('jwt');
       localStorage.removeItem('user');
       window.location.reload();
-
+        
       return null;
     }
 
     return storedUser ? JSON.parse(storedUser) : null;
   });
-
+        
   useEffect(() => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
