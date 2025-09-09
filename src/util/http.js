@@ -2,7 +2,9 @@ import getToken from './getToken';
 
 export async function fetchEvent() {
   try {
-    const response = await fetch('http://65.2.70.36:3000/api/v1/tours');
+    const response = await fetch(
+      'https://adventours.prathamsk.in/api/v1/tours'
+    );
 
     if (!response.ok) {
       const errorInfo = await response.json();
@@ -32,14 +34,17 @@ export async function fetchTour(tour) {
     }
     console.log(token);
 
-    const response = await fetch(`http://65.2.70.36:3000/api/v1/view/${tour}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${auth}`,
-      },
-      credentials: 'include',
-    });
+    const response = await fetch(
+      `https://adventours.prathamsk.in/api/v1/view/${tour}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${auth}`,
+        },
+        credentials: 'include',
+      }
+    );
 
     if (!response.ok) {
       const errorInfo = await response.json();
@@ -70,7 +75,7 @@ export async function fetchBookings(tour) {
     console.log(token);
 
     const response = await fetch(
-      `http://65.2.70.36:3000/api/v1/view/mybookings/getMyBookings`,
+      `https://adventours.prathamsk.in/api/v1/view/mybookings/getMyBookings`,
       {
         method: 'GET',
         headers: {
@@ -99,13 +104,16 @@ export async function fetchBookings(tour) {
 }
 
 export async function loginPOST(credentials) {
-  const response = await fetch('http://65.2.70.36:3000/api/v1/users/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetch(
+    'https://adventours.prathamsk.in/api/v1/users/login',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    }
+  );
 
   if (!response.ok) {
     const errorInfo = await response.json();
@@ -118,13 +126,16 @@ export async function loginPOST(credentials) {
   return response.json();
 }
 export async function signUpPOST(credentials) {
-  const response = await fetch('http://65.2.70.36:3000/api/v1/users/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  });
+  const response = await fetch(
+    'https://adventours.prathamsk.in/api/v1/users/signup',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    }
+  );
 
   if (!response.ok) {
     const errorInfo = await response.json();
@@ -143,7 +154,7 @@ export async function updateMe(credentials) {
     const auth = token ? `Bearer ${token}` : '';
 
     const response = await fetch(
-      `http://65.2.70.36:3000/api/v1/users/updateMe`,
+      `http://localhost: 3000/api/v1/users/updateMe`,
       {
         method: 'PATCH',
         headers: {
@@ -172,7 +183,7 @@ export async function updateMe(credentials) {
     throw error;
   }
 }
-// http://65.2.70.36:3000/api/v1/users/updateMyPassword
+// http://localhost: 3000/api/v1/users/updateMyPassword
 
 export async function updateMyPassword(credentials) {
   try {
@@ -181,7 +192,7 @@ export async function updateMyPassword(credentials) {
     console.log(token);
 
     const response = await fetch(
-      `http://65.2.70.36:3000/api/v1/users/updateMyPassword`,
+      `https://adventours.prathamsk.in/api/v1/users/updateMyPassword`,
       {
         method: 'PATCH',
         headers: {
@@ -212,10 +223,12 @@ export async function updateMyPassword(credentials) {
 
 export async function resetPassword({ token, newPassword, confirmPassword }) {
   console.log(token);
-  console.log(`http://65.2.70.36:3000/api/v1/users/resetPassword/${token}`);
+  console.log(
+    `https://adventours.prathamsk.in/api/v1/users/resetPassword/${token}`
+  );
   try {
     const response = await fetch(
-      `http://65.2.70.36:3000/api/v1/users/resetPassword/${token}`,
+      `https://adventours.prathamsk.in/api/v1/users/resetPassword/${token}`,
       {
         method: 'PATCH',
         headers: {
@@ -249,7 +262,7 @@ export async function checkoutSessionPOST(tourID, amount) {
   const token = getToken();
   const auth = token ? `Bearer ${token}` : '';
   const response = await fetch(
-    `http://65.2.70.36:3000/api/v1/bookings/checkout-session/${tourID}`,
+    `https://adventours.prathamsk.in/api/v1/bookings/checkout-session/${tourID}`,
     {
       method: 'POST',
       headers: {
@@ -282,7 +295,7 @@ export async function validatePayment(response, checkoutData) {
     const auth = token ? `Bearer ${token}` : '';
 
     const res = await fetch(
-      'http://65.2.70.36:3000/api/v1/bookings/order/validate',
+      'https://adventours.prathamsk.in/api/v1/bookings/order/validate',
       {
         method: 'POST',
         headers: {

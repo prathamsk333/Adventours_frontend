@@ -19,7 +19,7 @@ export default function Profile() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
 
-  // Mutation for updating user details
+  // Mutation for updating user details         
   const {
     mutate: mutateUserDetails,
     data: userData,

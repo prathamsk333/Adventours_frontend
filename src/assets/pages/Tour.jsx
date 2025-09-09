@@ -22,7 +22,7 @@ export default function Tour() {
   const navigate = useNavigate();
   const { slug } = useParams();
 
-  useEffect(() => {
+      (() => {
     loadRazorpayScript();
   }, []);
 
@@ -77,7 +77,7 @@ export default function Tour() {
       };  
 
       const rzp1 = new window.Razorpay(options);
-      rzp1.on('pay  ment.failed', function (response) {
+      rzp1.on('payment.failed', function (response) {
         alert(response.error.code);
         alert(response.error.description);
         alert(response.error.source);

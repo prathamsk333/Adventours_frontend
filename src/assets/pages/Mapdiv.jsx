@@ -25,7 +25,7 @@ export default function Mapdiv({ data }) {
   return (
     <Map
       ref={mapRef}
-      mapboxAccessToken="pk.eyJ1IjoicHJhdGhhbXNrIiwiYSI6ImNsemI0Y3lkczBwODYycXNhdnRtcmNpNXgifQ.jb72CnbhadnnADNWkl3NJQ"
+      mapboxAccessToken="pk.eyJ1IjoicHJhdGhhbXNrIiwiYSI6ImNsemI0Y3lkczBwODYycXNhdnRtcmNpNXgifQ.jb72CnbhadnnADNWkl3NJQ"      
       style={{ width: '100%', height: '100%' }}
       fadeDuration={200}
       mapStyle="mapbox://styles/prathamsk/clzbhvptb008b01qwbhpadfsw"

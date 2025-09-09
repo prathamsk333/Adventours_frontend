@@ -81,7 +81,7 @@
   top: 9rem;
   overflow: visible;
 }
-.startpage-img{
+.startpage-img {
   position: relative;
   top: 5rem;
   width: 22vw;
@@ -100,9 +100,7 @@
   -webkit-text-fill-color: transparent;
   width: 65vw;
   z-index: 60;
-
 }
-
 
 .intro-h2 {
   color: white;
@@ -213,7 +211,7 @@
 }
 
 @media (max-width: 1291px) {
-  .startpage-img{
+  .startpage-img {
     display: none;
   }
 }
@@ -225,11 +223,11 @@
 
 @media (max-width: 740px) {
   .intro-h1 {
-      font-size: 2.5rem;
-      font-weight: 400;
+    font-size: 2.5rem;
+    font-weight: 400;
     width: 90%;
   }
-  .intro-h2{
+  .intro-h2 {
     font-size: 1rem;
     width: 65%;
   }
@@ -237,19 +235,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50vh
-
+    height: 50vh;
   }
-  .intro-box{
+  .intro-box {
     top: 0;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:flex-start;
+    align-items: flex-start;
   }
-
 
   .footer img {
     position: relative;
@@ -282,7 +278,8 @@
   background-color: rgb(240, 240, 240);
   margin: 15px;
   display: flex;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
+  margin-top: 1rem;
   justify-content: center;
   align-items: center;
   display: grid;
@@ -524,8 +521,7 @@
     height: 100%;
     font-size: 0.8rem;
   }
-  .tour-home-image{
-
+  .tour-home-image {
   }
 
   .tour-middle-1 {
