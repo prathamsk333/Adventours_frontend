@@ -27,7 +27,7 @@ export default function Card({
     <div className="card">
       {console.log(image)}
       <div className="card-img-container">
-        <img className="card-img" src={`./../../../public/tours/${image}`} />
+        <img className="card-img" src={`/tours/${image}`} />
       </div>
 
       <div className="card-content">

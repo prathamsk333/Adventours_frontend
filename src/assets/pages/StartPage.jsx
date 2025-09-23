@@ -42,7 +42,7 @@ export default function StartPage() {
       <motion.img
         style={{ color: 'white', x: texty, scale: scaley, opacity: opacy }}
         className="startpage-img"
-        src="./startpageimg.png"
+        src="/startpageimg.png"
         alt=""
       />
     </div>

@@ -116,7 +116,7 @@ export default function Tour() {
             <div
               className="tour-content"
               style={{
-                backgroundImage: "url('/new.png')",
+                backgroundImage: `url('/tours/${data.imageCover}')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 overflow: 'hidden ',
